@@ -21,7 +21,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -55,9 +54,7 @@ class ItemDetailFragment : Fragment() {
         binding.apply {
             itemName.text = item.itemName
             itemPrice.text = item.getFormattedPrice()
-            itemCount.text = item.quantityInStock.toString()
-            sellItem.isEnabled = viewModel.isStockAvailable(item)
-            sellItem.setOnClickListener { viewModel.sellItem(item) }
+            itemShop.text = item.shop
             deleteItem.setOnClickListener { showConfirmationDialog() }
             editItem.setOnClickListener { editItem() }
         }

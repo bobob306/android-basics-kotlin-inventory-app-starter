@@ -27,14 +27,14 @@
                 android:layout_marginStart="@dimen/margin_between_elements"
                 android:fontFamily="sans-serif-medium"
                 android:textAlignment="center"
-                app:layout_constraintEnd_toStartOf="@+id/item_quantity"
+                app:layout_constraintEnd_toStartOf="@+id/item_shop"
                 app:layout_constraintHorizontal_weight="1"
                 app:layout_constraintStart_toEndOf="@+id/item_name"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="$4.99" />
 
         <TextView
-                android:id="@+id/item_quantity"
+                android:id="@+id/item_shop"
                 style="@style/Widget.Inventory.ListItemTextView"
                 android:layout_width="80dp"
                 android:layout_alignParentEnd="true"

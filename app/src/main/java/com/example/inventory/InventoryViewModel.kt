@@ -4,7 +4,6 @@ import androidx.lifecycle.*
 import com.example.inventory.data.Item
 import com.example.inventory.data.ItemDao
 import kotlinx.coroutines.launch
-import java.lang.IllegalArgumentException
 
 class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
 
@@ -19,23 +18,23 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
     private fun getNewItemEntry(
         itemName: String,
         itemPrice: String,
-        itemCount: String
+        shop: String
     ): Item {
-        val itemStockValue = (itemPrice.toDouble()*itemCount.toInt()*0.5).toString()
+        // val itemStockValue = (itemPrice.toDouble()*shop.toInt()*0.5).toString()
         return Item (
             itemName = itemName,
             itemPrice = itemPrice.toDouble(),
-            quantityInStock = itemCount.toInt()
+            shop = shop
         )
     }
 
-    fun addNewItem(itemName: String, itemPrice: String, itemCount: String) {
-        val newItem = getNewItemEntry(itemName, itemPrice, itemCount)
+    fun addNewItem(itemName: String, itemPrice: String, shop: String) {
+        val newItem = getNewItemEntry(itemName, itemPrice, shop)
         insertItem(newItem)
     }
 
-    fun isEntryValid(itemName: String, itemPrice: String, itemCount: String): Boolean {
-        if (itemName.isBlank() || itemPrice.isBlank() || itemCount.isBlank()) {
+    fun isEntryValid(itemName: String, itemPrice: String, shop: String): Boolean {
+        if (itemName.isBlank() || itemPrice.isBlank() || shop.isBlank()) {
             return false }
         return true
     }
@@ -44,17 +43,6 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
         return itemDao.getItem(id).asLiveData()
     }
 
-    fun sellItem(item: Item) {
-        if (item.quantityInStock > 0) {
-            // Checks to see if there is any in stock to sell
-            val newItem = item.copy(quantityInStock = item.quantityInStock - 1)
-            updateItem(newItem)
-        }
-    }
-
-    fun isStockAvailable(item: Item) : Boolean {
-        return (item.quantityInStock > 0)
-    }
 
     fun deleteItem(item: Item) {
         viewModelScope.launch {
@@ -66,13 +54,13 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
         itemId: Int,
         itemName: String,
         itemPrice: String,
-        itemCount: String
+        shop: String
     ) : Item {
         return Item(
             id = itemId,
             itemName = itemName,
             itemPrice = itemPrice.toDouble(),
-            quantityInStock = itemCount.toInt()
+            shop = shop
         )
     }
 
@@ -80,9 +68,9 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
         itemId: Int,
         itemName: String,
         itemPrice: String,
-        itemCount: String
+        shop: String
     ) {
-        val updatedItem = getUpdatedItemEntry(itemId, itemName, itemPrice, itemCount)
+        val updatedItem = getUpdatedItemEntry(itemId, itemName, itemPrice, shop)
         updateItem(updatedItem)
     }
 
