@@ -16,7 +16,12 @@ data class Item (
     val itemPrice: Double,
     @ColumnInfo (name = "shop")
     val shop: String,
+    @ColumnInfo (name = "quantity")
+    val itemQuantity: Double = 1.00,
         )
 
 fun Item.getFormattedPrice(): String =
     NumberFormat.getCurrencyInstance(Locale.GERMANY).format(itemPrice)
+
+fun Item.getValue(): Double =
+    itemPrice.div(itemQuantity)

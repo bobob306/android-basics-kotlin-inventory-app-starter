@@ -76,7 +76,8 @@ class AddItemFragment : Fragment() {
             viewModel.addNewItem(
                 binding.itemName.text.toString(),
                 binding.itemPrice.text.toString(),
-                binding.itemShop.text.toString()
+                binding.itemShop.text.toString(),
+                binding.itemQuantity.text.toString()
             )
             val action = AddItemFragmentDirections.actionAddItemFragmentToItemListFragment()
             findNavController().navigate(action)
@@ -106,6 +107,7 @@ class AddItemFragment : Fragment() {
             itemName.setText(item.itemName, TextView.BufferType.SPANNABLE)
             itemPrice.setText(price, TextView.BufferType.SPANNABLE)
             itemShop.setText(item.shop, TextView.BufferType.SPANNABLE)
+            itemQuantity.setText(item.itemQuantity.toString(), TextView.BufferType.SPANNABLE)
             saveAction.setOnClickListener { updateItem() }
         }
     }
@@ -117,7 +119,8 @@ class AddItemFragment : Fragment() {
                 this.navigationArgs.itemId,
                 this.binding.itemName.text.toString(),
                 this.binding.itemPrice.text.toString(),
-                this.binding.itemShop.text.toString()
+                this.binding.itemShop.text.toString(),
+                this.binding.itemQuantity.text.toString()
             )
             val action = AddItemFragmentDirections.actionAddItemFragmentToItemListFragment()
             findNavController().navigate(action)

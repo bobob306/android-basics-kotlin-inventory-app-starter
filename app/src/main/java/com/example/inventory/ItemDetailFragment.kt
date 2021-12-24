@@ -27,6 +27,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.inventory.data.Item
 import com.example.inventory.data.getFormattedPrice
+import com.example.inventory.data.getValue
 import com.example.inventory.databinding.FragmentItemDetailBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.InternalCoroutinesApi
@@ -55,6 +56,8 @@ class ItemDetailFragment : Fragment() {
             itemName.text = item.itemName
             itemPrice.text = item.getFormattedPrice()
             itemShop.text = item.shop
+            itemQuantity.text = item.itemQuantity.toString()
+            itemValue.text = item.getValue().toString()
             deleteItem.setOnClickListener { showConfirmationDialog() }
             editItem.setOnClickListener { editItem() }
         }
