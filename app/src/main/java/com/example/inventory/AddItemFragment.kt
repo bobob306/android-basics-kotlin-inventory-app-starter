@@ -33,6 +33,7 @@ import kotlinx.coroutines.InternalCoroutinesApi
 /**
  * Fragment to add or update an item in the Inventory database.
  */
+@InternalCoroutinesApi
 class AddItemFragment : Fragment() {
 
     private val navigationArgs: ItemDetailFragmentArgs by navArgs()
@@ -84,7 +85,6 @@ class AddItemFragment : Fragment() {
         }
     }
 
-    @InternalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val id = navigationArgs.itemId
