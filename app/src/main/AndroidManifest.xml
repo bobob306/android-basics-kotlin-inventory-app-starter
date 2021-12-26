@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.inventory">
+    package="com.benb.inventory">
 
     <application
-        android:name="com.example.inventory.InventoryApplication"
+        android:name="com.benb.inventory.InventoryApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -12,7 +12,7 @@
         android:theme="@style/Theme.InventoryApp">
         <activity
             android:exported="true"
-            android:name="com.example.inventory.MainActivity">
+            android:name="com.benb.inventory.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
