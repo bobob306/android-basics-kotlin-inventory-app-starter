@@ -19,8 +19,6 @@ class ShopItemFragment : Fragment() {
 
     private val navigationArgs: ShopItemFragmentArgs by navArgs()
 
-    lateinit var item: Item
-
     @InternalCoroutinesApi
     private val viewModel: InventoryViewModel by activityViewModels {
         InventoryViewModelFactory(
@@ -31,9 +29,6 @@ class ShopItemFragment : Fragment() {
     private var _binding: FragmentShopItemBinding? = null
     val binding get()= _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,7 +42,7 @@ class ShopItemFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val adapter = ItemListAdapter {
-            val action = ItemListFragmentDirections.actionItemListFragmentToItemDetailFragment(it.id)
+            val action = ShopItemFragmentDirections.actionShopItemFragmentToItemDetailFragment(it.id)
             this.findNavController().navigate(action)
         }
 
