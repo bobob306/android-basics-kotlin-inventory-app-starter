@@ -23,6 +23,7 @@ class ItemListAdapter(private val onItemClicked: (Item) -> Unit) :
                 itemShop.setOnClickListener{
                     val shopName = itemShop.text.toString()
                     Toast.makeText(root.context, "Clicked: ${item.shop}", Toast.LENGTH_SHORT ).show()
+
                 }
             }
         }
