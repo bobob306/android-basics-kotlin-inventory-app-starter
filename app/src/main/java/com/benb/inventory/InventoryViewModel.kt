@@ -1,13 +1,40 @@
-package com.example.inventory
+package com.benb.inventory
 
+import android.util.Log
 import androidx.lifecycle.*
-import com.example.inventory.data.Item
-import com.example.inventory.data.ItemDao
+import com.benb.inventory.data.Item
+import com.benb.inventory.data.ItemDao
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
+
+enum class SortOrder {BY_NAME, BY_SHOP}
 
 class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
 
-    val allItems: LiveData<List<Item>> = itemDao.getItems().asLiveData()
+    private var _basketPrice = MutableLiveData<Double>(0.0)
+    val basketPrice: LiveData<Double> get() = _basketPrice
+
+    private var _basketContents = MutableLiveData<List<String>>()
+    val basketContents: LiveData<List<String>> get() = _basketContents
+
+    val searchQuery = MutableStateFlow("")
+
+    val sortOrder = MutableStateFlow(SortOrder.BY_SHOP)
+
+    private val itemsFlow = combine(
+        searchQuery,
+        sortOrder
+    ) {
+        query, sortOrder ->
+        Pair(query, sortOrder)
+    }
+        .flatMapLatest { (query, sortOrder) ->
+        itemDao.getItems(query, sortOrder)
+    }
+
+    val allItems: LiveData<List<Item>> = itemsFlow.asLiveData()
 
     private fun insertItem(item: Item) {
         viewModelScope.launch {
@@ -83,6 +110,17 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
         viewModelScope.launch {
             itemDao.update(item)
         }
+    }
+
+    fun onLineClicked(item: Item) {
+        // navigate to item detail fragment, currently already implemented in item list fragment
+    }
+
+    fun onCartClicked(item: Item) {
+        _basketPrice.value = _basketPrice.value?.plus(item.itemPrice)
+        _basketContents.value = _basketContents.value?.plusElement(item.itemName) ?: listOf(item.itemName)
+        Log.d("Basket price checker","Basket subtotal = €${basketPrice.value.toString()}")
+        Log.d("Basket content checker", "Basket content = ${basketContents.value!!.last()}")
     }
 
 }

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.inventory
+package com.benb.inventory.ui
 
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
@@ -26,7 +26,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.inventory.data.Item
+import com.benb.inventory.InventoryApplication
+import com.benb.inventory.InventoryViewModel
+import com.benb.inventory.InventoryViewModelFactory
+import com.benb.inventory.data.Item
 import com.example.inventory.databinding.FragmentAddItemBinding
 import kotlinx.coroutines.InternalCoroutinesApi
 

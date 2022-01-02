@@ -38,4 +38,7 @@
     <string name="shop_name_req">Shop Name <font color='#FF0000'>*</font></string>
     <string name="shop">Shop</string>
     <string name="value">Value</string>
+    <string name="sort_by_name">Sort by name</string>
+    <string name="sort_by_shop">Sort by shop</string>
+    <string name="cart_total_d">Cart Total: €</string>
 </resources>

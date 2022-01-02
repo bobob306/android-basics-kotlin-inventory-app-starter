@@ -1,4 +1,4 @@
-package com.example.inventory.data
+package com.benb.inventory.data
 
 import android.content.Context
 import androidx.room.Database

@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.inventory
+package com.benb.inventory
 
 import android.app.Application
-import com.example.inventory.data.ItemRoomDatabase
+import com.benb.inventory.data.ItemRoomDatabase
 import kotlinx.coroutines.InternalCoroutinesApi
 
 class InventoryApplication : Application(){

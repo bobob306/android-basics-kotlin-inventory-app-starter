@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.inventory
+package com.benb.inventory.ui
 
 
 import android.os.Bundle
@@ -25,9 +25,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.inventory.data.Item
-import com.example.inventory.data.getFormattedPrice
-import com.example.inventory.data.getValue
+import com.benb.inventory.InventoryApplication
+import com.benb.inventory.InventoryViewModel
+import com.benb.inventory.InventoryViewModelFactory
+import com.benb.inventory.data.Item
+import com.benb.inventory.data.getFormattedPrice
+import com.benb.inventory.data.getValue
+import com.example.inventory.R
 import com.example.inventory.databinding.FragmentItemDetailBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.InternalCoroutinesApi
