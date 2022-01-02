@@ -123,6 +123,10 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
         Log.d("Basket content checker", "Basket content = ${basketContents.value!!.last()}")
     }
 
+    fun goToBasket() {
+        // navigate to basket fragment
+    }
+
 }
 
 class InventoryViewModelFactory(private val itemDao: ItemDao) : ViewModelProvider.Factory {

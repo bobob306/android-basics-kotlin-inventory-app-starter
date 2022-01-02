@@ -74,6 +74,9 @@ class ItemListFragment : Fragment(), ItemListAdapter.onItemClickListener {
             }
         }
 
+        binding.shoppingBasketButton.setOnClickListener{
+            viewModel.goToBasket()
+        }
 
         binding.recyclerView.layoutManager = LinearLayoutManager(this.context)
         binding.floatingActionButton.setOnClickListener {
