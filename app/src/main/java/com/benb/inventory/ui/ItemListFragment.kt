@@ -23,7 +23,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.benb.inventory.*
+import com.benb.inventory.InventoryApplication
+import com.benb.inventory.InventoryViewModel
+import com.benb.inventory.InventoryViewModelFactory
+import com.benb.inventory.SortOrder
+import com.benb.inventory.adapter.ItemListAdapter
 import com.benb.inventory.data.item.Item
 import com.benb.inventory.util.onQueryTextChanged
 import com.example.inventory.R

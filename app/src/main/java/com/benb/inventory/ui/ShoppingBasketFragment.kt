@@ -33,13 +33,33 @@ class ShoppingBasketFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //binding.recyclerView.adapter = adapter
+
         viewModel.allBasketItems.observe(this.viewLifecycleOwner) { basket ->
             basket.let {
                 //adapter.submitList(it)
             }
         }
+
+        //binding.itemListButton.setOnClickListener{
+            //viewModel.goToList()
+        //}
+
+        //binding.recyclerView.layoutManager = LinearLayoutManager(this.context)
+
     }
 
+    //override fun onPlusClicked(basket: Basket) {
+        //viewModel.onPlusClicked(basket)
+    //}
+
+    //override fun onMinusClicked(basket: Basket) {
+        //viewModel.onMinusClicked(basket)
+    //}
+
+    //override fun onDeleteClicked(basket: Basket) {
+        //viewModel.onDeleteClicked(basket)
+    //}
 
 
 }

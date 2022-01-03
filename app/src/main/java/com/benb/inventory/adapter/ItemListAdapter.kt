@@ -1,4 +1,4 @@
-package com.benb.inventory
+package com.benb.inventory.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
