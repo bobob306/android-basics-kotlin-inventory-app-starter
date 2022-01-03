@@ -6,14 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.benb.inventory.InventoryApplication
 import com.benb.inventory.InventoryViewModel
 import com.benb.inventory.InventoryViewModelFactory
+import com.benb.inventory.adapter.BasketListAdapter
+import com.benb.inventory.data.basket.Basket
 import com.example.inventory.databinding.FragmentShoppingBasketBinding
 import kotlinx.coroutines.InternalCoroutinesApi
 
 @InternalCoroutinesApi
-class ShoppingBasketFragment : Fragment() {
+class ShoppingBasketFragment : Fragment(), BasketListAdapter.OnBasketClickListener {
 
     @InternalCoroutinesApi
     private val viewModel: InventoryViewModel by activityViewModels {
@@ -33,7 +36,9 @@ class ShoppingBasketFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //binding.recyclerView.adapter = adapter
+        val adapter = BasketListAdapter(this)
+
+        binding.recyclerView.adapter = adapter
 
         viewModel.allBasketItems.observe(this.viewLifecycleOwner) { basket ->
             basket.let {
@@ -41,25 +46,25 @@ class ShoppingBasketFragment : Fragment() {
             }
         }
 
-        //binding.itemListButton.setOnClickListener{
-            //viewModel.goToList()
-        //}
+        binding.navToList.setOnClickListener{
+            viewModel.goToList()
+        }
 
-        //binding.recyclerView.layoutManager = LinearLayoutManager(this.context)
+        binding.recyclerView.layoutManager = LinearLayoutManager(this.context)
 
     }
 
-    //override fun onPlusClicked(basket: Basket) {
-        //viewModel.onPlusClicked(basket)
-    //}
+    override fun onPlusClicked(basket: Basket) {
+        viewModel.onPlusClicked(basket)
+    }
 
-    //override fun onMinusClicked(basket: Basket) {
-        //viewModel.onMinusClicked(basket)
-    //}
+    override fun onMinusClicked(basket: Basket) {
+        viewModel.onMinusClicked(basket)
+    }
 
-    //override fun onDeleteClicked(basket: Basket) {
-        //viewModel.onDeleteClicked(basket)
-    //}
+    override fun onDeleteClicked(basket: Basket) {
+        viewModel.onDeleteClicked(basket)
+    }
 
 
 }

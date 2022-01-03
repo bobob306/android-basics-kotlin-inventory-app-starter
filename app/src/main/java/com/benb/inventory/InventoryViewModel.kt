@@ -154,6 +154,22 @@ class InventoryViewModel(private val itemDao: ItemDao, private val basketDao: Ba
         // navigate to basket fragment
     }
 
+    fun goToList() {
+        // navigate to list
+    }
+
+    fun onPlusClicked(basket: Basket) {
+        // add one to basket item quantity
+    }
+    fun onMinusClicked(basket: Basket) {
+        // subtract one to basket item quantity
+        // if one show delete confirmation and dialogue and delete item
+    }
+
+    fun onDeleteClicked(basket: Basket) {
+        // remove item from basket, first show dialogue
+    }
+
 }
 
 class InventoryViewModelFactory(private val itemDao: ItemDao, private val basketDao: BasketDao) : ViewModelProvider.Factory {
