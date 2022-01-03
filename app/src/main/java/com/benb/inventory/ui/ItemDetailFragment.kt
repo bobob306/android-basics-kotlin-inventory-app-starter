@@ -51,7 +51,7 @@ class ItemDetailFragment : Fragment() {
     @InternalCoroutinesApi
     private val viewModel: InventoryViewModel by activityViewModels {
         InventoryViewModelFactory(
-            (activity?.application as InventoryApplication).database.itemDao()
+            (activity?.application as InventoryApplication).database.itemDao(), (activity?.application as InventoryApplication).database.basketDao()
         )
     }
 

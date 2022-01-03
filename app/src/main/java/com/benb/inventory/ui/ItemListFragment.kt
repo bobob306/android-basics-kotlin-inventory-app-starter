@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.benb.inventory
+package com.benb.inventory.ui
 
 import android.os.Bundle
 import android.view.*
@@ -23,6 +23,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.benb.inventory.*
 import com.benb.inventory.data.item.Item
 import com.benb.inventory.util.onQueryTextChanged
 import com.example.inventory.R
@@ -38,7 +39,7 @@ class ItemListFragment : Fragment(), ItemListAdapter.onItemClickListener {
     @InternalCoroutinesApi
     private val viewModel: InventoryViewModel by activityViewModels {
         InventoryViewModelFactory(
-            (activity?.application as InventoryApplication).database.itemDao()
+            (activity?.application as InventoryApplication).database.itemDao(), (activity?.application as InventoryApplication).database.basketDao()
         )
     }
 

@@ -21,7 +21,7 @@
 
     <fragment
         android:id="@+id/itemListFragment"
-        android:name="com.benb.inventory.ItemListFragment"
+        android:name="com.benb.inventory.ui.ItemListFragment"
         android:label="@string/app_name"
         tools:layout="@layout/item_list_fragment">
         <action

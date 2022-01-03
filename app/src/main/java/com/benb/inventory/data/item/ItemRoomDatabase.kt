@@ -4,13 +4,16 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.benb.inventory.data.basket.Basket
+import com.benb.inventory.data.basket.BasketDao
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.internal.synchronized
 
-@Database(entities = [Item::class], version = 5, exportSchema = false)
+@Database(entities = [Basket::class, Item::class], version = 6, exportSchema = false)
 abstract class ItemRoomDatabase : RoomDatabase() {
 
     abstract fun itemDao(): ItemDao
+    abstract fun basketDao(): BasketDao
 
     companion object {
         @Volatile

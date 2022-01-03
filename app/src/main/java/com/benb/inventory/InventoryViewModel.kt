@@ -2,6 +2,8 @@ package com.benb.inventory
 
 import android.util.Log
 import androidx.lifecycle.*
+import com.benb.inventory.data.basket.Basket
+import com.benb.inventory.data.basket.BasketDao
 import com.benb.inventory.data.item.Item
 import com.benb.inventory.data.item.ItemDao
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -11,7 +13,7 @@ import kotlinx.coroutines.launch
 
 enum class SortOrder {BY_NAME, BY_SHOP}
 
-class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
+class InventoryViewModel(private val itemDao: ItemDao, private val basketDao: BasketDao) : ViewModel() {
 
     private var _basketPrice = MutableLiveData<Double>(0.0)
     val basketPrice: LiveData<Double> get() = _basketPrice
@@ -40,10 +42,16 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
     }
 
     val allItems: LiveData<List<Item>> = itemsFlow.asLiveData()
+    val allBasketItems: LiveData<List<Basket>> = basketDao.getBasketContents().asLiveData()
 
     private fun insertItem(item: Item) {
         viewModelScope.launch {
             itemDao.insert(item)
+        }
+    }
+    private fun insertBasket(basket: Basket) {
+        viewModelScope.launch {
+            basketDao.insert(basket)
         }
     }
 
@@ -60,6 +68,16 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
             shop = shop,
             itemQuantity = itemQuantity.toDouble()
         )
+    }
+    private fun createNewBasketEntry(itemName: String, itemPrice: Double, shop: String, itemQuantity: Int = 1) : Basket{
+        return Basket(bItemName = itemName, bItemPrice = itemPrice, bShop = shop, bItemQuantity = 1)
+
+    }
+
+    fun addItemToBasket(itemName: String, itemPrice: Double, shop: String, itemQuantity: Int = 1) {
+        val newBasketEntry = createNewBasketEntry(itemName, itemPrice, shop, itemQuantity)
+        insertBasket(newBasketEntry)
+
     }
 
     fun addNewItem(itemName: String, itemPrice: String, shop: String, itemQuantity: String) {
@@ -124,6 +142,7 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
     fun onCartClicked(item: Item) {
         _basket.value = _basket.value?.plusElement(item) ?: listOf(item)
         _basketPrice.value = _basketPrice.value?.plus(item.itemPrice)
+        addItemToBasket(item.itemName, item.itemPrice, item.shop)
 
         //_basketContents.value = _basketContents.value?.plusElement(item.itemName) ?: listOf(item.itemName)
         Log.d("Basket checker","Basket subtotal = ${basket.value!!.last().itemName} €${basket.value!!.last().itemPrice}")
@@ -137,11 +156,11 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
 
 }
 
-class InventoryViewModelFactory(private val itemDao: ItemDao) : ViewModelProvider.Factory {
+class InventoryViewModelFactory(private val itemDao: ItemDao, private val basketDao: BasketDao) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(InventoryViewModel::class.java)) {
             @Suppress ("UNCHECKED_CAST")
-            return InventoryViewModel(itemDao) as T
+            return InventoryViewModel(itemDao, basketDao) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
