@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.benb.inventory.data.Item
-import com.benb.inventory.data.getFormattedPrice
+import com.benb.inventory.data.item.Item
+import com.benb.inventory.data.item.getFormattedPrice
 import com.example.inventory.databinding.ItemListItemBinding
 
 class ItemListAdapter(private val onItemClicked: (Item) -> Unit, private val listener: onItemClickListener) :

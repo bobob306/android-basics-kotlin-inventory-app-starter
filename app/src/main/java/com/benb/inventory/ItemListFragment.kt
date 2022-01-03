@@ -23,7 +23,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.benb.inventory.data.Item
+import com.benb.inventory.data.item.Item
 import com.benb.inventory.util.onQueryTextChanged
 import com.example.inventory.R
 import com.example.inventory.databinding.ItemListFragmentBinding
@@ -32,6 +32,7 @@ import kotlinx.coroutines.InternalCoroutinesApi
 /**
  * Main fragment displaying details for all items in the database.
  */
+@InternalCoroutinesApi
 class ItemListFragment : Fragment(), ItemListAdapter.onItemClickListener {
 
     @InternalCoroutinesApi
@@ -53,7 +54,6 @@ class ItemListFragment : Fragment(), ItemListAdapter.onItemClickListener {
         return binding.root
     }
 
-    @InternalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val adapter = ItemListAdapter(onItemClicked = {
@@ -89,7 +89,6 @@ class ItemListFragment : Fragment(), ItemListAdapter.onItemClickListener {
         setHasOptionsMenu(true)
     }
 
-    @InternalCoroutinesApi
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_fragment_list, menu)
 
@@ -102,7 +101,6 @@ class ItemListFragment : Fragment(), ItemListAdapter.onItemClickListener {
 
     }
 
-    @InternalCoroutinesApi
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_sort_by_name -> {
@@ -117,12 +115,10 @@ class ItemListFragment : Fragment(), ItemListAdapter.onItemClickListener {
         }
     }
 
-    @InternalCoroutinesApi
     override fun onCartClicked(item: Item) {
         viewModel.onCartClicked(item)
     }
 
-    @InternalCoroutinesApi
     override fun onLineClicked(item: Item) {
         viewModel.onLineClicked(item)
     }

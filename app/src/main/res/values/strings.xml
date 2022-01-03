@@ -41,4 +41,6 @@
     <string name="sort_by_name">Sort by name</string>
     <string name="sort_by_shop">Sort by shop</string>
     <string name="cart_total_d">Cart Total: €</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

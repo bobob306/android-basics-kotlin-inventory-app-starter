@@ -1,4 +1,4 @@
-package com.benb.inventory.data
+package com.benb.inventory.data.item
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

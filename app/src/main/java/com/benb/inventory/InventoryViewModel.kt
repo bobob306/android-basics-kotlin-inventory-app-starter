@@ -2,8 +2,8 @@ package com.benb.inventory
 
 import android.util.Log
 import androidx.lifecycle.*
-import com.benb.inventory.data.Item
-import com.benb.inventory.data.ItemDao
+import com.benb.inventory.data.item.Item
+import com.benb.inventory.data.item.ItemDao
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
@@ -18,6 +18,11 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
 
     private var _basketContents = MutableLiveData<List<String>>()
     val basketContents: LiveData<List<String>> get() = _basketContents
+
+    private var _basket = MutableLiveData<List<Item>>()
+    val basket: LiveData<List<Item>> get() = _basket
+    private var _basketSubtotal = MutableLiveData<Double>()
+    val basketSubtotal get()= _basketSubtotal
 
     val searchQuery = MutableStateFlow("")
 
@@ -117,10 +122,13 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
     }
 
     fun onCartClicked(item: Item) {
+        _basket.value = _basket.value?.plusElement(item) ?: listOf(item)
         _basketPrice.value = _basketPrice.value?.plus(item.itemPrice)
-        _basketContents.value = _basketContents.value?.plusElement(item.itemName) ?: listOf(item.itemName)
-        Log.d("Basket price checker","Basket subtotal = €${basketPrice.value.toString()}")
-        Log.d("Basket content checker", "Basket content = ${basketContents.value!!.last()}")
+
+        //_basketContents.value = _basketContents.value?.plusElement(item.itemName) ?: listOf(item.itemName)
+        Log.d("Basket checker","Basket subtotal = ${basket.value!!.last().itemName} €${basket.value!!.last().itemPrice}")
+
+        //Log.d("Basket content checker", "Basket content = ${basketContents.value!!.last()}")
     }
 
     fun goToBasket() {

@@ -16,7 +16,7 @@
 package com.benb.inventory
 
 import android.app.Application
-import com.benb.inventory.data.ItemRoomDatabase
+import com.benb.inventory.data.item.ItemRoomDatabase
 import kotlinx.coroutines.InternalCoroutinesApi
 
 class InventoryApplication : Application(){

@@ -29,7 +29,7 @@ import androidx.navigation.fragment.navArgs
 import com.benb.inventory.InventoryApplication
 import com.benb.inventory.InventoryViewModel
 import com.benb.inventory.InventoryViewModelFactory
-import com.benb.inventory.data.Item
+import com.benb.inventory.data.item.Item
 import com.example.inventory.databinding.FragmentAddItemBinding
 import kotlinx.coroutines.InternalCoroutinesApi
 

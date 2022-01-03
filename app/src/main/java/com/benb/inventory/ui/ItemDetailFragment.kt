@@ -28,9 +28,9 @@ import androidx.navigation.fragment.navArgs
 import com.benb.inventory.InventoryApplication
 import com.benb.inventory.InventoryViewModel
 import com.benb.inventory.InventoryViewModelFactory
-import com.benb.inventory.data.Item
-import com.benb.inventory.data.getFormattedPrice
-import com.benb.inventory.data.getValue
+import com.benb.inventory.data.item.Item
+import com.benb.inventory.data.item.getFormattedPrice
+import com.benb.inventory.data.item.getValue
 import com.example.inventory.R
 import com.example.inventory.databinding.FragmentItemDetailBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -39,6 +39,7 @@ import kotlinx.coroutines.InternalCoroutinesApi
 /**
  * [ItemDetailFragment] displays the details of the selected item.
  */
+@InternalCoroutinesApi
 class ItemDetailFragment : Fragment() {
     private val navigationArgs: ItemDetailFragmentArgs by navArgs()
 
@@ -67,7 +68,6 @@ class ItemDetailFragment : Fragment() {
         }
     }
 
-    @InternalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val id = navigationArgs.itemId
