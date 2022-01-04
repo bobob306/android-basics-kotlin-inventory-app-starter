@@ -9,7 +9,7 @@
         app:layout_constraintRight_toRightOf="parent">
 
     <TextView
-            android:layout_width="120dp"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:id="@+id/basketName"
             android:hint="Name"
@@ -18,7 +18,7 @@
             android:layout_marginTop="8dp" />
 
     <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/basketPrice"
             android:hint="@string/price"
@@ -27,7 +27,8 @@
             android:layout_marginStart="8dp"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="8dp"
-            app:layout_constraintWidth_min="35dp" />
+            app:layout_constraintWidth_min="35dp"
+            app:layout_constraintEnd_toStartOf="@+id/basketShop" />
 
     <TextView
             android:layout_width="wrap_content"
@@ -71,16 +72,17 @@
             app:layout_constraintTop_toTopOf="@+id/basketQuantity" />
 
     <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/basketItemTotal"
             android:hint="Total for Item"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toEndOf="@+id/basketShop" />
 
     <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/basketShop"
             android:hint="Shop"
