@@ -5,6 +5,7 @@ import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.benb.inventory.InventoryApplication
@@ -16,7 +17,9 @@ import com.benb.inventory.data.item.Item
 import com.benb.inventory.util.onQueryTextChanged
 import com.example.inventory.R
 import com.example.inventory.databinding.ItemListFragmentBinding
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.flow.collect
 
 /**
  * Main fragment displaying details for all items in the database.
@@ -64,7 +67,8 @@ class ItemListFragment : Fragment(), ItemListAdapter.onItemClickListener {
         }
 
         binding.shoppingBasketButton.setOnClickListener{
-            viewModel.goToBasket()
+            val action = ItemListFragmentDirections.actionItemListFragmentToShoppingBasketFragment()
+            this.findNavController().navigate(action)
         }
 
         binding.recyclerView.layoutManager = LinearLayoutManager(this.context)
@@ -73,6 +77,20 @@ class ItemListFragment : Fragment(), ItemListAdapter.onItemClickListener {
                 getString(R.string.add_fragment_title)
             )
             this.findNavController().navigate(action)
+        }
+
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.itemEvent.collect { item ->
+                when (item) {
+                    is InventoryViewModel.ItemEvent.ShowUndoDeleteMessage -> {
+                        Snackbar.make(requireView(), "Task deleted", Snackbar.LENGTH_LONG)
+                            .setAction("UNDO") {
+                                viewModel.onUndoDeleteClick(item.item)
+                            }.show()
+                    }
+                }
+            }
+
         }
 
         setHasOptionsMenu(true)

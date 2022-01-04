@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.benb.inventory.InventoryApplication
 import com.benb.inventory.InventoryViewModel
@@ -42,12 +43,13 @@ class ShoppingBasketFragment : Fragment(), BasketListAdapter.OnBasketClickListen
 
         viewModel.allBasketItems.observe(this.viewLifecycleOwner) { basket ->
             basket.let {
-                //adapter.submitList(it)
+                adapter.submitList(it)
             }
         }
 
         binding.navToList.setOnClickListener{
-            viewModel.goToList()
+            val action = ShoppingBasketFragmentDirections.actionShoppingBasketFragmentToItemListFragment()
+            this.findNavController().navigate(action)
         }
 
         binding.recyclerView.layoutManager = LinearLayoutManager(this.context)

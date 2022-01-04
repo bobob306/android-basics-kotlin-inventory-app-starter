@@ -6,9 +6,11 @@ import com.benb.inventory.data.basket.Basket
 import com.benb.inventory.data.basket.BasketDao
 import com.benb.inventory.data.item.Item
 import com.benb.inventory.data.item.ItemDao
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 enum class SortOrder {BY_NAME, BY_SHOP}
@@ -29,6 +31,9 @@ class InventoryViewModel(private val itemDao: ItemDao, private val basketDao: Ba
     val searchQuery = MutableStateFlow("")
 
     val sortOrder = MutableStateFlow(SortOrder.BY_SHOP)
+
+    private val itemEventChannel = Channel<ItemEvent>()
+    val itemEvent = itemEventChannel.receiveAsFlow()
 
     private val itemsFlow = combine(
         searchQuery,
@@ -55,12 +60,7 @@ class InventoryViewModel(private val itemDao: ItemDao, private val basketDao: Ba
         }
     }
 
-    private fun getNewItemEntry(
-        itemName: String,
-        itemPrice: String,
-        shop: String,
-        itemQuantity: String
-    ): Item {
+    private fun getNewItemEntry(itemName: String,itemPrice: String,shop: String,itemQuantity: String): Item {
         // val itemStockValue = (itemPrice.toDouble()*shop.toInt()*0.5).toString()
         return Item (
             itemName = itemName,
@@ -102,13 +102,7 @@ class InventoryViewModel(private val itemDao: ItemDao, private val basketDao: Ba
         }
     }
 
-    fun getUpdatedItemEntry(
-        itemId: Int,
-        itemName: String,
-        itemPrice: String,
-        shop: String,
-        itemQuantity: String
-    ) : Item {
+    fun getUpdatedItemEntry(itemId: Int,itemName: String,itemPrice: String,shop: String,itemQuantity: String) : Item {
         return Item(
             id = itemId,
             itemName = itemName,
@@ -118,13 +112,7 @@ class InventoryViewModel(private val itemDao: ItemDao, private val basketDao: Ba
         )
     }
 
-    fun updateItem(
-        itemId: Int,
-        itemName: String,
-        itemPrice: String,
-        shop: String,
-        itemQuantity: String
-    ) {
+    fun updateItem(itemId: Int,itemName: String,itemPrice: String,shop: String,itemQuantity: String) {
         val updatedItem = getUpdatedItemEntry(itemId, itemName, itemPrice, shop, itemQuantity)
         updateItem(updatedItem)
     }
@@ -150,14 +138,6 @@ class InventoryViewModel(private val itemDao: ItemDao, private val basketDao: Ba
         //Log.d("Basket content checker", "Basket content = ${basketContents.value!!.last()}")
     }
 
-    fun goToBasket() {
-        // navigate to basket fragment
-    }
-
-    fun goToList() {
-        // navigate to list
-    }
-
     fun onPlusClicked(basket: Basket) {
         // add one to basket item quantity
     }
@@ -167,7 +147,17 @@ class InventoryViewModel(private val itemDao: ItemDao, private val basketDao: Ba
     }
 
     fun onDeleteClicked(basket: Basket) {
-        // remove item from basket, first show dialogue
+        viewModelScope.launch {
+            basketDao.delete(basket)
+        }
+    }
+
+    fun  onUndoDeleteClick(item: Item) = viewModelScope.launch {
+        itemDao.insert(item)
+    }
+
+    sealed class ItemEvent {
+        data class ShowUndoDeleteMessage(val item: Item) : ItemEvent()
     }
 
 }

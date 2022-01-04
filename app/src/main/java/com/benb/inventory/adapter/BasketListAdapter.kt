@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.benb.inventory.data.basket.Basket
 import com.benb.inventory.data.basket.getFormattedPrice
+import com.benb.inventory.data.basket.getValue
 import com.example.inventory.databinding.BasketListItemBinding
 
 class BasketListAdapter(private val listener: OnBasketClickListener) :
@@ -59,6 +60,7 @@ class BasketListAdapter(private val listener: OnBasketClickListener) :
                 basketPrice.text = basket.getFormattedPrice()
                 basketQuantity.text = basket.bItemQuantity.toString()
                 basketShop.text = basket.bShop
+                basketItemTotal.text = basket.getValue()
             }
         }
 
@@ -74,6 +76,7 @@ class BasketListAdapter(private val listener: OnBasketClickListener) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BasketViewHolder {
         return BasketViewHolder(BasketListItemBinding.inflate(LayoutInflater.from(parent.context)))
+
     }
 
     override fun onBindViewHolder(holder: BasketViewHolder, position: Int) {

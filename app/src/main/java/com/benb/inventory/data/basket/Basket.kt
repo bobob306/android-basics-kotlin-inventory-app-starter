@@ -23,5 +23,5 @@ data class Basket(
 fun Basket.getFormattedPrice(): String =
     NumberFormat.getCurrencyInstance(Locale.GERMANY).format(bItemPrice)
 
-fun Basket.getValue(): Double =
-    bItemPrice.times(bItemQuantity)
+fun Basket.getValue(): String =
+    NumberFormat.getCurrencyInstance(Locale.GERMANY).format(bItemPrice.times(bItemQuantity))
